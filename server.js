@@ -70,14 +70,15 @@ app.use(cookieParser())
 //Guarda las sesiones de las cookkiess en mongo
 app.use(session({
     store: MongoStore.create({
-        mongoUrl: "mongodb+srv://alan:1996@coderbasebackend-32150.elnd1xu.mongodb.net/DBsessions?retryWrites=true&w=majority"
+        mongoUrl: "mongodb+srv://alan:1996@coderbasebackend-32150.elnd1xu.mongodb.net/DBsessions?retryWrites=true&w=majority",
+        ttl: 600
     }),
     secret: "clave",
     resave: false,
     saveUninitialized: false,
-    cookie: {
-        maxAge: 600000
-    }
+    // cookie: {
+    //     maxAge: 600000
+    // }
 }))
 
 //Rutas

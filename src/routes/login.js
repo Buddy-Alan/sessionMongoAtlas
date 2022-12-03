@@ -9,13 +9,15 @@ const checkUser = (req, res, next) => {
         res.redirect("/login")
     }
 }
-const checkSesion = (req, res) => {
-    if (req.session.userName) {
+const checkSesion = (req, res, next) => {
+    if (!req.session.userName) {
+        next()
+    } else {
         res.redirect("/")
     }
 }
 
-login.get("/login", (req, res) => {
+login.get("/login", checkSesion, (req, res) => {
     res.render('formLogin')
 })
 
@@ -24,8 +26,6 @@ login.post("/perfil", async (req, res) => {
     req.session.userName = name
     req.session.email = email
     req.session.apellido = apellido
-    console.log(req.session.userName)
-    console.log(req.session.apellido)
     res.redirect("/")
 })
 
